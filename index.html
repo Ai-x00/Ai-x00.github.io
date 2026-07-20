@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ai</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:"DotGothic16",sans-serif;
+
+background:
+radial-gradient(circle at top,#ffe7ff,#d9c7ff,#b9d8ff);
+
+overflow-x:hidden;
+
+color:#4a4a6a;
+
+min-height:100vh;
+
+}
+
+/* 星空 */
+
+.stars{
+
+position:fixed;
+
+left:0;
+top:0;
+
+width:100%;
+height:100%;
+
+pointer-events:none;
+
+overflow:hidden;
+
+z-index:-3;
+
+}
+
+.star{
+
+position:absolute;
+
+width:2px;
+height:2px;
+
+background:white;
+
+border-radius:50%;
+
+animation:twinkle 3s infinite;
+
+}
+
+@keyframes twinkle{
+
+0%{opacity:.2;}
+50%{opacity:1;}
+100%{opacity:.2;}
+
+}
+
+/* ドット背景 */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:100%;
+height:100%;
+
+background-image:
+
+radial-gradient(rgba(255,255,255,.5) 1px,transparent 1px);
+
+background-size:16px 16px;
+
+opacity:.35;
+
+z-index:-2;
+
+}
+
+/* 雲 */
+
+.cloud{
+
+position:fixed;
+
+background:white;
+
+opacity:.3;
+
+border-radius:50px;
+
+filter:blur(2px);
+
+animation:cloudMove linear infinite;
+
+z-index:-1;
+
+}
+
+@keyframes cloudMove{
+
+from{
+
+transform:translateX(-300px);
+
+}
+
+to{
+
+transform:translateX(calc(100vw + 300px));
+
+}
+
+}
+
+/* メインウィンドウ */
+
+.window{
+
+width:min(900px,92%);
+
+margin:40px auto;
+
+background:#ffffffcc;
+
+backdrop-filter:blur(10px);
+
+border:4px solid white;
+
+border-radius:18px;
+
+overflow:hidden;
+
+box-shadow:
+
+0 10px 30px rgba(0,0,0,.15);
+
+}
+
+/* タイトルバー */
+
+.titlebar{
+
+background:linear-gradient(
+
+90deg,
+
+#ffb8ef,
+
+#d6b8ff,
+
+#a8d9ff
+
+);
+
+padding:12px 18px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:white;
+
+font-size:18px;
+
+}
+
+.buttons{
+
+display:flex;
+gap:8px;
+
+}
+
+.buttons span{
+
+width:16px;
+height:16px;
+
+border-radius:50%;
+
+display:block;
+
+}
+
+.buttons span:nth-child(1){
+
+background:#ff8fa3;
+
+}
+
+.buttons span:nth-child(2){
+
+background:#ffe28a;
+
+}
+
+.buttons span:nth-child(3){
+
+background:#8fffa0;
+
+}
+
+/* 本体 */
+
+.content{
+
+padding:30px;
+
+text-align:center;
+
+}
+
+.profile{
+
+width:130px;
+height:130px;
+
+margin:auto;
+
+border-radius:50%;
+
+border:5px solid white;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#ffd8f7,
+
+#c7d4ff,
+
+#b8f7ff
+
+);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:55px;
+
+color:white;
+
+}
+
+h1{
+
+margin-top:20px;
+
+font-size:40px;
+
+}
+
+.subtitle{
+
+margin-top:10px;
+
+opacity:.7;
+
+}.link-buttons{
+
+display:grid;
+
+gap:15px;
+
+margin-top:30px;
+
+}
+
+.link-buttons a{
+
+text-decoration:none;
+
+padding:15px;
+
+border-radius:15px;
+
+background:linear-gradient(
+90deg,
+#ffd6f5,
+#d8ccff,
+#c9f0ff
+);
+
+color:#555;
+
+font-size:18px;
+
+transition:.25s;
+
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+
+}
+
+.link-buttons a:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+.games{
+
+margin-top:40px;
+
+display:grid;
+
+gap:20px;
+
+}
+
+.game{
+
+background:white;
+
+border-radius:18px;
+
+padding:20px;
+
+text-align:left;
+
+box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+}
+
+.game h2{
+
+margin-bottom:10px;
+
+font-size:22px;
+
+}
+
+.game p{
+
+margin:6px 0;
+
+}
+
+.copy{
+
+margin-top:10px;
+
+padding:8px 14px;
+
+border:none;
+
+border-radius:10px;
+
+background:#d7c8ff;
+
+cursor:pointer;
+
+font-family:inherit;
+
+}
+
+.copy:hover{
+
+background:#c4b0ff;
+
+}
+
+footer{
+
+margin:40px 0 10px;
+
+text-align:center;
+
+opacity:.6;
+
+}
+
+@media(max-width:700px){
+
+h1{
+
+font-size:30px;
+
+}
+
+.profile{
+
+width:100px;
+height:100px;
+
+font-size:40px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="window">
+
+<div class="titlebar">
+
+<div>🎨 Dream Paint</div>
+
+<div class="buttons">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="profile">
+
+🖼️
+
+</div>
+
+<h1>Ai</h1>
+
+<p class="subtitle">
+
+Game Profile & Links
+
+</p>
+
+<div class="link-buttons">
+
+<a href="#">🐦 X</a>
+
+<a href="#">💬 Discord</a>
+
+<a href="#">🌐 Other Link</a>
+
+</div>
+
+<div class="games">
+
+<div class="game">
+
+<h2>🎮 原神</h2>
+
+<p>UID：</p>
+
+<p>冒険ランク：</p>
+
+<p>世界ランク：</p>
+
+<button class="copy">
+UIDをコピー
+</button>
+
+</div>
+
+<div class="game">
+
+<h2>🚂 崩壊：スターレイル</h2>
+
+<p>UID：</p>
+
+<p>開拓レベル：</p>
+
+<button class="copy">
+UIDをコピー
+</button>
+
+</div>
+
+<div class="game">
+
+<h2>🌆 NTE</h2>
+
+<p>UID：</p>
+
+<button class="copy">
+UIDをコピー
+</button>
+
+</div>
+
+<div class="game">
+
+<h2>⭐ その他</h2>
+
+<p>自由に追加できます！</p>
+
+</div>
+
+</div>
+
+<footer>
+
+Made with GitHub Pages ✨
+
+</footer>
+
+</div>
+
+</div><script>
+
+const stars=document.querySelector(".stars");
+
+for(let i=0;i<120;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+
+star.style.animationDelay=Math.random()*3+"s";
+
+star.style.opacity=Math.random();
+
+stars.appendChild(star);
+
+}
+
+for(let i=0;i<6;i++){
+
+const cloud=document.createElement("div");
+
+cloud.className="cloud";
+
+cloud.style.width=120+Math.random()*120+"px";
+cloud.style.height=40+Math.random()*30+"px";
+
+cloud.style.top=Math.random()*100+"vh";
+
+cloud.style.animationDuration=30+Math.random()*30+"s";
+
+document.body.appendChild(cloud);
+
+}
+
+document.querySelectorAll(".copy").forEach(btn=>{
+
+btn.onclick=()=>{
+
+const uid=btn.parentElement.querySelector("p").textContent.replace("UID：","").trim();
+
+if(uid===""){
+
+alert("UIDがまだ入力されていません！");
+
+return;
+
+}
+
+navigator.clipboard.writeText(uid);
+
+btn.textContent="✅ コピーしました！";
+
+setTimeout(()=>{
+
+btn.textContent="UIDをコピー";
+
+},1500);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
